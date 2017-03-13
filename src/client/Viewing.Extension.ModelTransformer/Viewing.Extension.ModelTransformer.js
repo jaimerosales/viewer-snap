@@ -7,6 +7,9 @@
 import Panel from './Viewing.Extension.ModelTransformer.Panel'
 import ExtensionBase from '../components/Viewer.ExtensionBase'
 import ViewerToolkit from '../components/Viewer.Toolkit'
+/// WHY I'M USING GLOBAL VARIABLES, SIMPLE I'M SETTING UP WITH REACT-SCRIPTS FOR EASIER 3RD PARTY DEVELOPER USE OF PROJECT
+/// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-global-variables
+
 const Autodesk = window.Autodesk;
 const THREE = window.THREE;
 

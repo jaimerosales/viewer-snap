@@ -6,8 +6,11 @@
 
 import UIComponent from '../UIComponent'
 import './Dropdown.css'
+
+/// WHY I'M USING GLOBAL VARIABLES, SIMPLE I'M SETTING UP WITH REACT-SCRIPTS FOR EASIER 3RD PARTY DEVELOPER USE OF PROJECT
+/// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-global-variables
+
 const $ = window.$;
-const opts = window.opts;
 
 export default class Dropdown extends UIComponent {
 

@@ -1,4 +1,7 @@
 
+/// WHY I'M USING GLOBAL VARIABLES, SIMPLE I'M SETTING UP WITH REACT-SCRIPTS FOR EASIER 3RD PARTY DEVELOPER USE OF PROJECT
+/// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-global-variables
+
   const THREE = window.THREE;  
 
 
@@ -8,9 +11,9 @@
     /////////////////////////////////////////////////////////////
     function getScale() {
 
-      var x = parseFloat(0.0055)
-      var y = parseFloat(0.0055)
-      var z = parseFloat(0.0055)
+      var x = parseFloat(0.2)
+      var y = parseFloat(0.2)
+      var z = parseFloat(0.2)
 
       x = isNaN(x) ? 1.0 : x;
       y = isNaN(y) ? 1.0 : y;
@@ -21,9 +24,9 @@
 
     function getTranslation() {
 
-      var x = parseFloat(-80.00)
-      var y = parseFloat(-25.00)
-      var z = parseFloat(-18.00)
+      var x = parseFloat(0.0)
+      var y = parseFloat(0.0)
+      var z = parseFloat(0.0)
 
       x = isNaN(x) ? 0.0 : x;
       y = isNaN(y) ? 0.0 : y;
