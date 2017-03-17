@@ -18,6 +18,8 @@
 
 import React, { Component } from 'react';
 import Helpers from './Viewer-Helpers';
+// import TranslateTool from '../../Viewing.Extension.ModelTransformer/Viewing.Tool.Translate';
+// import ViewerTooltip from '../Viewer.Tooltip'
 import './Viewer.css';
 
 class Viewer extends Component {
@@ -29,13 +31,12 @@ class Viewer extends Component {
     }
 
     loadSecondModel() {
-        // Fusion furniture
-        // var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3JhY2tfYXNzLmYzZA'
         // Fusion AC unit
         var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L2NlaWxpbmctY29ybmVyLmYzZA'
-        Helpers.loadNextModel(secondModelId);
-
+        Helpers.loadNextModel(secondModelId);   
     }
+
+    
 
     render() {
         return (
@@ -47,6 +48,8 @@ class Viewer extends Component {
             <button className="model-button" onClick={this.loadSecondModel} >
                 <i className="fa fa-plus-square"></i>
             </button>
+
+         
           </div>
         );
     }

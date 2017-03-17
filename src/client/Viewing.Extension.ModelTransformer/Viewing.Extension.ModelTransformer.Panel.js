@@ -11,10 +11,6 @@ import ViewerTooltip from '../components/Viewer.Tooltip'
 import ToolPanelBase from '../components/ToolPanelBase'
 import SwitchButton from '../components/SwitchButton'
 import Dropdown from '../components/Dropdown'
-
-/// WHY I'M USING GLOBAL VARIABLES, SIMPLE I'M SETTING UP WITH REACT-SCRIPTS FOR EASIER 3RD PARTY DEVELOPER USE OF PROJECT
-/// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-global-variables
-
 const Autodesk = window.Autodesk;
 const THREE = window.THREE;
 const $ = window.$;
@@ -256,11 +252,22 @@ export default class ModelTransformerPanel extends ToolPanelBase {
 
       <div class="container">
 
+         <div id="${this.dropdownContainerId}">
+        </div>
+
+        <hr class="v-spacer">
+
+        <span class="text-span">
+            Snap:
+          </span>
+
+          <hr class="v-spacer">
+
         <button id="${this.transPickBtnId}"
             class="btn btn-trans-pick" disabled>
             <span class="glyphicon glyphicon-screenshot btn-span">
             </span>
-        </button>
+          </button>
 
         <hr class="v-spacer">
 
@@ -271,6 +278,8 @@ export default class ModelTransformerPanel extends ToolPanelBase {
           </span>
 
           <hr class="v-spacer">
+
+          
 
           <input id="${id}-Tx" type="text"
             class="input numeric trans"

@@ -18,15 +18,24 @@
 
 import Client from '../Client';
 import ModelTransformerExtension from '../../Viewing.Extension.ModelTransformer';
-import Transform from '../Transformation/Transform';
+import EventTool from '../Viewer.EventTool/Viewer.EventTool'
+
 var viewer;
+var pointer;
+
+var x; 
+var y;
+var z;
+
 var getToken = { accessToken: Client.getaccesstoken()};
+var pointData ={};
 
 /// WHY I'M USING GLOBAL VARIABLES, SIMPLE I'M SETTING UP WITH REACT-SCRIPTS FOR EASIER 3RD PARTY DEVELOPER USE OF PROJECT
 /// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-global-variables
 
 const Autodesk = window.Autodesk;
-//const THREE = window.THREE;
+const THREE = window.THREE;
+
 
 function launchViewer(documentId) {
  getToken.accessToken.then((token) => { 
@@ -64,8 +73,15 @@ function onDocumentLoadSuccess(doc) {
         return;
     }
 
+    var eventTool = new EventTool(viewer)
+    eventTool.activate()
+    eventTool.on('singleclick', (event) => {
+        pointer = event
+    })
+
     //load model.
-    viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, onGeometryLoaded);
+    viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, onGeometryLoadedHandler);
+    viewer.addEventListener(Autodesk.Viewing.AGGREGATE_SELECTION_CHANGED_EVENT,onSelection);
     viewer.prefs.tag('ignore-producer');
     viewer.impl.disableRollover(true);
     viewer.loadExtension(ModelTransformerExtension, {
@@ -87,52 +103,76 @@ function onDocumentLoadFailure(viewerErrorCode) {
     console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);
 }
 
-/**
-* viewer.loadModel() success callback.
-* Invoked after the model's SVF has been initially loaded.
-* It may trigger before any geometry has been downloaded and displayed on-screen.
-**/
-function onLoadModelSuccess(model) {
-    console.log('onLoadModelSuccess()!');
-    console.log('Validate model loaded: ' + (viewer.model === model));
-    console.log(model);
-}
-
-/**
-* viewer.loadModel() failure callback.
-* Invoked when there's an error fetching the SVF file.
-*/
-function onLoadModelError(viewerErrorCode) {
-    console.error('onLoadModelError() - errorCode:' + viewerErrorCode);
-}
-
-
 //////////////////////////////////////////////////////////////////////////
 // Model Geometry loaded callback
 //
 //////////////////////////////////////////////////////////////////////////
-function onGeometryLoaded(event) {
+function onGeometryLoadedHandler(event) {
         var viewer = event.target;
         viewer.removeEventListener(
                 Autodesk.Viewing.GEOMETRY_LOADED_EVENT,
-                onGeometryLoaded);
+                onGeometryLoadedHandler);
         viewer.fitToView();
-            debugger;
 }
 
 function loadNextModel(documentId) {
-    Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
+     const extInstance = viewer.getExtension(ModelTransformerExtension);
+     const pickVar = extInstance.panel;
+
+     pickVar.tooltip.setContent(`
+      <div id="pickTooltipId" class="pick-tooltip">
+        <b>Pick position ...</b>
+      </div>`, '#pickTooltipId')
+
+
+
+    if (!pointData.point){
+        alert('You need to select a point in your house to snap the AC first');
+        pickVar.tooltip.activate();
+    }
+    else{
+        alert('Attaching Ac Unit')
+        Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
+        pickVar.tooltip.deactivate();
+    }
+   
 }
 
-// function TransformSimple (){
-//     var m = new THREE.Matrix4()
-//     m.makeScale ( 0.2, 0.2, 0.2 )
-//     var opts =  {
-//         placementTransform: m
-//     }
-//     return opts
-// }
 
+function onSelection (event) {
+
+    if (event.selections && event.selections.length) {
+
+      const selection = event.selections[0]
+
+      const dbIds = selection.dbIdArray
+
+      pointData = viewer.clientToWorld(
+        pointer.canvasX,
+        pointer.canvasY,
+        true)
+       console.log('X', pointData, 'Y', pointData.point.y, 'Z', pointData.point.z)
+    }
+}
+
+
+function matrixTransform(){
+    //return new Promise(async(resolve, reject)=> {
+        var matrix = new THREE.Matrix4();
+        console.log('calling vector3 - x = ', x);
+        var t = new THREE.Vector3(pointData.point.x , pointData.point.y+5, pointData.point.z);
+        console.log('Translation ', t);
+        var euler = new THREE.Euler(
+                    90 * Math.PI/180, 0, 0,'XYZ');
+
+        var q = new THREE.Quaternion();
+        q.setFromEuler(euler);
+        var s = new THREE.Vector3(0.2, 0.2, 0.2);    
+        matrix.compose(t, q, s);
+
+        return matrix
+    //})
+}
 
 
 function loadModel(viewables, lmvDoc, indexViewable) {
@@ -140,17 +180,30 @@ function loadModel(viewables, lmvDoc, indexViewable) {
         var initialViewable = viewables[indexViewable];
         var svfUrl = lmvDoc.getViewablePath(initialViewable);
         var modelOptions; // = TransformSimple();   
+        var modelName;
+
         if (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L2NlaWxpbmctY29ybmVyLmYzZA"){
+            // var m = new THREE.Matrix4()
+            // m.makeTranslation ( x,y,z);
+
             modelOptions = {
-                placementTransform: Transform.buildTransformMatrix()
+                placementTransform: matrixTransform()
             };
+            modelName = "Ac_unit.f3d"
+            console.log('Here are the points to Transform')
+
         }
         else {
             modelOptions = {
-                sharedPropertyDbPath: lmvDoc.getPropertyDbPath()
+                sharedPropertyDbPath: lmvDoc.getPropertyDbPath(),
             };
+            modelName = "fabric.rvt"
         }
-        viewer.loadModel(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
+
+        viewer.loadModel(svfUrl, modelOptions, (model) => {
+            model.name = modelName;
+            resolve(model)
+        })
     })
 }
 

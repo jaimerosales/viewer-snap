@@ -301,10 +301,10 @@ class ModelTransformerExtension extends ExtensionBase {
   //
   /////////////////////////////////////////////////////////////////
   onGeometryLoaded (e) {
-
+    debugger;
     if(this._options.autoLoad) {
-
-      var model = e.target.model
+      debugger;
+      var model = e.model
 
       model.modelId = model.modelId || ExtensionBase.guid()
 
