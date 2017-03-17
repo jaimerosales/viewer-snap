@@ -32,7 +32,7 @@ class Viewer extends Component {
 
     loadSecondModel() {
         // Fusion AC unit
-        var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L2NlaWxpbmctY29ybmVyLmYzZA'
+        var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA'
         Helpers.loadNextModel(secondModelId);   
     }
 

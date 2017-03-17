@@ -154,23 +154,23 @@ function matrixTransform(){
 
         switch (pointData.face.normal.x * pointData.face.normal.y === 0){
         case (pointData.face.normal.x === 0 && pointData.face.normal.y === -1) :
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y+5, pointData.point.z+5);
-            euler = new THREE.Euler(90 * Math.PI/180, 0, 0,'XYZ');
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y+3.6, pointData.point.z+5);
+            euler = new THREE.Euler(0, 0, 0,'XYZ');
             console.log('Inside Y = -1 Wall');
             break;
         case (pointData.face.normal.x === 0 && pointData.face.normal.y === 1):
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y +5, pointData.point.z+5);
-            euler = new THREE.Euler( 0, 0, 0, 'XYZ');
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 8.3, pointData.point.z+5);
+            euler = new THREE.Euler( 0, 0, 180 * Math.PI/180, 'XYZ');
             console.log('Inside Y = 1 Wall');
             break;
         case (pointData.face.normal.x === -1 && pointData.face.normal.y === 0):
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 6, pointData.point.z + 2.4);
-            euler = new THREE.Euler( 0, 0, 90 * Math.PI/180, 'XYZ');
+            t = new THREE.Vector3(pointData.point.x - 2.4 , pointData.point.y + 6, pointData.point.z + 2.4);
+            euler = new THREE.Euler( 0, 0, 270 * Math.PI/180, 'XYZ');
             console.log('Inside X = -1 Wall');
             break;
         case (pointData.face.normal.x === 1 && pointData.face.normal.y === 0):
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 6, pointData.point.z + 2.4);
-            euler = new THREE.Euler( 0, 0, 270 * Math.PI/180, 'XYZ');
+            t = new THREE.Vector3(pointData.point.x + 2.4 , pointData.point.y + 6, pointData.point.z + 2.4);
+            euler = new THREE.Euler( 0, 0, 90 * Math.PI/180, 'XYZ');
             console.log('Inside X = 1 Wall');
             break;
         default:
@@ -194,7 +194,7 @@ function loadModel(viewables, lmvDoc, indexViewable) {
         var modelOptions;    
         var modelName;
 
-        if (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L2NlaWxpbmctY29ybmVyLmYzZA"){
+        if (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA"){
             
             modelOptions = {
                 placementTransform: matrixTransform()
