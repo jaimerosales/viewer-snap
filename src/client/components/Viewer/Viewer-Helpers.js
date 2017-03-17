@@ -125,7 +125,6 @@ function loadNextModel(documentId) {
         pickVar.tooltip.activate();
     }
     else{
-        alert('Attaching Ac Unit')
         Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
         pickVar.tooltip.deactivate();
     }
