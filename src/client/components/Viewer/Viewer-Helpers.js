@@ -23,10 +23,6 @@ import EventTool from '../Viewer.EventTool/Viewer.EventTool'
 var viewer;
 var pointer;
 
-var x; 
-var y;
-var z;
-
 var getToken = { accessToken: Client.getaccesstoken()};
 var pointData ={};
 
@@ -124,8 +120,6 @@ function loadNextModel(documentId) {
         <b>Pick position ...</b>
       </div>`, '#pickTooltipId')
 
-
-
     if (!pointData.point){
         alert('You need to select a point in your house to snap the AC first');
         pickVar.tooltip.activate();
@@ -142,28 +136,47 @@ function loadNextModel(documentId) {
 function onSelection (event) {
 
     if (event.selections && event.selections.length) {
-
-      const selection = event.selections[0]
-
-      const dbIds = selection.dbIdArray
-
+      // const selection = event.selections[0]
+      // const dbIds = selection.dbIdArray
       pointData = viewer.clientToWorld(
         pointer.canvasX,
         pointer.canvasY,
         true)
-       console.log('X', pointData, 'Y', pointData.point.y, 'Z', pointData.point.z)
+
     }
 }
 
 
 function matrixTransform(){
-    //return new Promise(async(resolve, reject)=> {
+   
         var matrix = new THREE.Matrix4();
-        console.log('calling vector3 - x = ', x);
-        var t = new THREE.Vector3(pointData.point.x , pointData.point.y+5, pointData.point.z);
-        console.log('Translation ', t);
-        var euler = new THREE.Euler(
-                    90 * Math.PI/180, 0, 0,'XYZ');
+        var t;
+        var euler;
+
+        switch (pointData.face.normal.x * pointData.face.normal.y === 0){
+        case (pointData.face.normal.x === 0 && pointData.face.normal.y === -1) :
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y+5, pointData.point.z);
+            euler = new THREE.Euler(90 * Math.PI/180, 0, 0,'XYZ');
+            console.log('Inside Y = -1 Wall');
+            break;
+        case (pointData.face.normal.x === 0 && pointData.face.normal.y === 1):
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y +5, pointData.point.z);
+            euler = new THREE.Euler( 0, 0, 0, 'XYZ');
+            console.log('Inside Y = 1 Wall');
+            break;
+        case (pointData.face.normal.x === -1 && pointData.face.normal.y === 0):
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y, pointData.point.z);
+            euler = new THREE.Euler( 0, 0, 90 * Math.PI/180, 'XYZ');
+            console.log('Inside X = -1 Wall');
+            break;
+        case (pointData.face.normal.x === 1 && pointData.face.normal.y === 0):
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y, pointData.point.z);
+            euler = new THREE.Euler( 0, 0, 270 * Math.PI/180, 'XYZ');
+            console.log('Inside X = 1 Wall');
+            break;
+        default:
+            alert('You need to select one of the walls for this AC Unit');
+        }
 
         var q = new THREE.Quaternion();
         q.setFromEuler(euler);
@@ -171,7 +184,7 @@ function matrixTransform(){
         matrix.compose(t, q, s);
 
         return matrix
-    //})
+ 
 }
 
 
@@ -179,19 +192,15 @@ function loadModel(viewables, lmvDoc, indexViewable) {
     return new Promise(async(resolve, reject)=> {
         var initialViewable = viewables[indexViewable];
         var svfUrl = lmvDoc.getViewablePath(initialViewable);
-        var modelOptions; // = TransformSimple();   
+        var modelOptions;    
         var modelName;
 
         if (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L2NlaWxpbmctY29ybmVyLmYzZA"){
-            // var m = new THREE.Matrix4()
-            // m.makeTranslation ( x,y,z);
-
+            
             modelOptions = {
                 placementTransform: matrixTransform()
             };
             modelName = "Ac_unit.f3d"
-            console.log('Here are the points to Transform')
-
         }
         else {
             modelOptions = {
