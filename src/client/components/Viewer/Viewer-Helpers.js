@@ -154,12 +154,12 @@ function matrixTransform(){
 
         switch (pointData.face.normal.x * pointData.face.normal.y === 0){
         case (pointData.face.normal.x === 0 && pointData.face.normal.y === -1) :
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y+5, pointData.point.z);
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y+5, pointData.point.z+5);
             euler = new THREE.Euler(90 * Math.PI/180, 0, 0,'XYZ');
             console.log('Inside Y = -1 Wall');
             break;
         case (pointData.face.normal.x === 0 && pointData.face.normal.y === 1):
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y +5, pointData.point.z);
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y +5, pointData.point.z+5);
             euler = new THREE.Euler( 0, 0, 0, 'XYZ');
             console.log('Inside Y = 1 Wall');
             break;
