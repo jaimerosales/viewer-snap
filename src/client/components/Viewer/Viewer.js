@@ -18,23 +18,30 @@
 
 import React, { Component } from 'react';
 import Helpers from './Viewer-Helpers';
-// import TranslateTool from '../../Viewing.Extension.ModelTransformer/Viewing.Tool.Translate';
-// import ViewerTooltip from '../Viewer.Tooltip'
+import Gallery from '../Gallery/Gallery';
 import './Viewer.css';
 
 class Viewer extends Component {
 
     componentDidMount() {
-        // Revit Fabric-brick
-        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0ZhYnJpYy1icmljay5ydnQ';
-        Helpers.launchViewer(documentId);        
+        // Revit Apartment
+        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0FwYXJ0bWVudC5ydnQ';
+        Helpers.launchViewer(documentId);         
     }
 
-    loadSecondModel() {
-        // Fusion AC unit
-        var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA'
-        Helpers.loadNextModel(secondModelId);   
-    }
+    // loadSecondModel() {
+    //     // Fusion AC unit
+
+    //     // wall 1
+    //     //var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA'
+        
+    //     //wall 2
+    //     //var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGwtdHlwZS5mM2Q'
+      
+    //     // floor unit
+    //     var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0Zsb29yLUV4cG9zZWQtLmYzZA'
+    //     Helpers.loadNextModel(secondModelId);   
+    // }
 
     
 
@@ -45,11 +52,7 @@ class Viewer extends Component {
             <div className="forge-logo">
                 <img className="logo-size" src="images/forge-logo.png" alt="Autodesk Forge" />
             </div>
-            <button className="model-button" onClick={this.loadSecondModel} >
-                <i className="fa fa-plus-square"></i>
-            </button>
-
-         
+            <Gallery />                   
           </div>
         );
     }

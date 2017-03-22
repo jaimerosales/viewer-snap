@@ -1,0 +1,29 @@
+.forge-gallery {
+  position: absolute;
+  z-index: 2;
+  top: 23%;
+  left: 1%; }
+
+.forge-gallery .tile {
+  border-radius: 5px;
+  margin-bottom: 0.8em;
+  position: relative; }
+
+.forge-gallery .tile .tile-avatar {
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 1px lightgray;
+  height: auto;
+  max-width: 100%; }
+
+.forge-gallery .tile .tile-title {
+  bottom: 0;
+  width: calc(100%);
+  background-color: rgba(80, 80, 80, 0.5);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  bottom: 0;
+  color: white;
+  font-size: 1em;
+  padding: .6em .8em;
+  position: absolute;
+  text-shadow: 1px 1px 1px black; }

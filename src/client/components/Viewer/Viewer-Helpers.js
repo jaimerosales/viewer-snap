@@ -135,43 +135,85 @@ function loadNextModel(documentId) {
 function onSelection (event) {
 
     if (event.selections && event.selections.length) {
-      // const selection = event.selections[0]
-      // const dbIds = selection.dbIdArray
       pointData = viewer.clientToWorld(
         pointer.canvasX,
         pointer.canvasY,
         true)
-
+      
     }
+    console.log('pointData', pointData)
 }
 
 
-function matrixTransform(){
+
+
+function wallOneTransform(){
    
         var matrix = new THREE.Matrix4();
         var t;
         var euler;
 
         switch (pointData.face.normal.x * pointData.face.normal.y === 0){
-        case (pointData.face.normal.x === 0 && pointData.face.normal.y === -1) :
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y+3.6, pointData.point.z+5);
-            euler = new THREE.Euler(0, 0, 0,'XYZ');
-            console.log('Inside Y = -1 Wall');
-            break;
-        case (pointData.face.normal.x === 0 && pointData.face.normal.y === 1):
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 8.3, pointData.point.z+5);
+        case (pointData.face.normal.x === 0 && Math.round(pointData.face.normal.y) === 1):
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 7, pointData.point.z+4.1);
             euler = new THREE.Euler( 0, 0, 180 * Math.PI/180, 'XYZ');
             console.log('Inside Y = 1 Wall');
             break;
-        case (pointData.face.normal.x === -1 && pointData.face.normal.y === 0):
-            t = new THREE.Vector3(pointData.point.x - 2.4 , pointData.point.y + 6, pointData.point.z + 2.4);
+        case (pointData.face.normal.x === 0 && Math.round(pointData.face.normal.y) === -1) :
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y+5.1, pointData.point.z+4.1);
+            euler = new THREE.Euler(0, 0, 0,'XYZ');
+            console.log('Inside Y = -1 Wall');
+            break;
+        case (Math.round(pointData.face.normal.x) === 1 && pointData.face.normal.y === 0):
+            t = new THREE.Vector3(pointData.point.x + 1 , pointData.point.y + 6, pointData.point.z + 4.1);
+            euler = new THREE.Euler( 0, 0, 90 * Math.PI/180, 'XYZ');
+            console.log('Inside X = 1 Wall');
+            break;
+        case (Math.round(pointData.face.normal.x) === -1 && pointData.face.normal.y === 0):
+            t = new THREE.Vector3(pointData.point.x - 1 , pointData.point.y + 6, pointData.point.z + 4.1);
             euler = new THREE.Euler( 0, 0, 270 * Math.PI/180, 'XYZ');
             console.log('Inside X = -1 Wall');
             break;
-        case (pointData.face.normal.x === 1 && pointData.face.normal.y === 0):
-            t = new THREE.Vector3(pointData.point.x + 2.4 , pointData.point.y + 6, pointData.point.z + 2.4);
-            euler = new THREE.Euler( 0, 0, 90 * Math.PI/180, 'XYZ');
+        
+        default:
+            alert('You need to select one of the walls for this AC Unit');
+        }
+
+        var q = new THREE.Quaternion();
+        q.setFromEuler(euler);
+        var s = new THREE.Vector3(0.08, 0.08, 0.08);    
+        matrix.compose(t, q, s);
+
+        return matrix
+ 
+}
+
+function wallTwoTransform(){
+   
+        var matrix = new THREE.Matrix4();
+        var t;
+        var euler;
+
+        switch (pointData.face.normal.x * pointData.face.normal.y === 0){
+        case (pointData.face.normal.x === 0 && Math.round(pointData.face.normal.y) === 1):
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 5.2, pointData.point.z+2);
+            euler = new THREE.Euler(270 * Math.PI/180, 0, 180 * Math.PI/180, 'XYZ');
+            console.log('Inside Y = 1 Wall');
+            break;
+        case (pointData.face.normal.x === 0 && Math.round(pointData.face.normal.y) === -1) :
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y +5.2, pointData.point.z+2);
+            euler = new THREE.Euler(90 * Math.PI/180,0, 0,'XYZ');
+            console.log('Inside Y = -1 Wall');
+            break;
+        case (Math.round(pointData.face.normal.x) === 1 && pointData.face.normal.y === 0):
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 5.2, pointData.point.z + 2);
+            euler = new THREE.Euler( 90 * Math.PI/180, 90 * Math.PI/180, 0, 'XYZ');
             console.log('Inside X = 1 Wall');
+            break;
+        case (Math.round(pointData.face.normal.x) === -1 && pointData.face.normal.y === 0):
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 5.2, pointData.point.z + 2);
+            euler = new THREE.Euler( 90 * Math.PI/180, 270 * Math.PI/180, 0, 'XYZ');
+            console.log('Inside X = -1 Wall');
             break;
         default:
             alert('You need to select one of the walls for this AC Unit');
@@ -179,7 +221,32 @@ function matrixTransform(){
 
         var q = new THREE.Quaternion();
         q.setFromEuler(euler);
-        var s = new THREE.Vector3(0.2, 0.2, 0.2);    
+        var s = new THREE.Vector3(0.08, 0.08, 0.08);    
+        matrix.compose(t, q, s);
+
+        return matrix
+ 
+}
+
+
+function floorTransform(){
+   
+        var matrix = new THREE.Matrix4();
+        var t;
+        var euler;
+
+        if (pointData.face.normal.x === 0 && pointData.face.normal.y === 0 ){
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 13 , pointData.point.z + 4.1);
+            euler = new THREE.Euler(90 * Math.PI/180, 0, 0,'XYZ');
+            console.log('Clipped to Floor Z axis');
+        }
+        else {
+            alert('You need to select a point on the Floor');
+        }
+
+        var q = new THREE.Quaternion();
+        q.setFromEuler(euler);
+        var s = new THREE.Vector3(0.08, 0.08, 0.08);    
         matrix.compose(t, q, s);
 
         return matrix
@@ -193,21 +260,33 @@ function loadModel(viewables, lmvDoc, indexViewable) {
         var svfUrl = lmvDoc.getViewablePath(initialViewable);
         var modelOptions;    
         var modelName;
-
-        if (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA"){
-            
-            modelOptions = {
-                placementTransform: matrixTransform()
-            };
-            modelName = "Ac_unit.f3d"
+        debugger;
+        switch (lmvDoc.myData.status.toString() === "success" ) {
+            case (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA"):
+                modelOptions = {
+                    placementTransform: wallOneTransform()
+                };
+                modelName = "wall-ac-unit-one.f3d"    
+                break;
+            case (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGwtdHlwZS12NC5mM2Q"):
+                modelOptions = {
+                    placementTransform: wallTwoTransform()
+                };
+                modelName = "wall-ac-unit-two.f3d"
+                break;
+            case (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0Zsb29yLUV4cG9zZWQtMV9Ub25uYWdlLmYzZA"):
+                modelOptions = {
+                    placementTransform: floorTransform()
+                };
+                modelName = "floor-ac-unit.f3d"
+                break;
+            default:
+                modelOptions = {
+                    sharedPropertyDbPath: lmvDoc.getPropertyDbPath(),
+                };
+                modelName = "Apartment.rvt"
         }
-        else {
-            modelOptions = {
-                sharedPropertyDbPath: lmvDoc.getPropertyDbPath(),
-            };
-            modelName = "fabric.rvt"
-        }
-
+       
         viewer.loadModel(svfUrl, modelOptions, (model) => {
             model.name = modelName;
             resolve(model)
