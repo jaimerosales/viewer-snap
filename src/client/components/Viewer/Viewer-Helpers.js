@@ -155,23 +155,23 @@ function wallOneTransform(){
 
         switch (pointData.face.normal.x * pointData.face.normal.y === 0){
         case (pointData.face.normal.x === 0 && Math.round(pointData.face.normal.y) === 1):
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 7, pointData.point.z+4.1);
-            euler = new THREE.Euler( 0, 0, 180 * Math.PI/180, 'XYZ');
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 6, pointData.point.z+4.1);
+            euler = new THREE.Euler( 90 * Math.PI/180, 180 * Math.PI/180, 0, 'XYZ');
             console.log('Inside Y = 1 Wall');
             break;
         case (pointData.face.normal.x === 0 && Math.round(pointData.face.normal.y) === -1) :
-            t = new THREE.Vector3(pointData.point.x , pointData.point.y+5.1, pointData.point.z+4.1);
-            euler = new THREE.Euler(0, 0, 0,'XYZ');
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y+ 6, pointData.point.z+4.1);
+            euler = new THREE.Euler(90 * Math.PI/180, 0, 0,'XYZ');
             console.log('Inside Y = -1 Wall');
             break;
         case (Math.round(pointData.face.normal.x) === 1 && pointData.face.normal.y === 0):
-            t = new THREE.Vector3(pointData.point.x + 1 , pointData.point.y + 6, pointData.point.z + 4.1);
-            euler = new THREE.Euler( 0, 0, 90 * Math.PI/180, 'XYZ');
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 6, pointData.point.z + 4.1);
+            euler = new THREE.Euler( 90 * Math.PI/180, 90 * Math.PI/180, 0, 'XYZ');
             console.log('Inside X = 1 Wall');
             break;
         case (Math.round(pointData.face.normal.x) === -1 && pointData.face.normal.y === 0):
-            t = new THREE.Vector3(pointData.point.x - 1 , pointData.point.y + 6, pointData.point.z + 4.1);
-            euler = new THREE.Euler( 0, 0, 270 * Math.PI/180, 'XYZ');
+            t = new THREE.Vector3(pointData.point.x , pointData.point.y + 6, pointData.point.z + 4.1);
+            euler = new THREE.Euler( 90 * Math.PI/180, 270 * Math.PI/180,0, 'XYZ');
             console.log('Inside X = -1 Wall');
             break;
         

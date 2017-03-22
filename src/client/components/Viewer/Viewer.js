@@ -25,25 +25,9 @@ class Viewer extends Component {
 
     componentDidMount() {
         // Revit Apartment
-        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0FwYXJ0bWVudC5ydnQ';
+        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0FwYXJ0bWVudC1GdXJuaXNoZWQucnZ0';
         Helpers.launchViewer(documentId);         
-    }
-
-    // loadSecondModel() {
-    //     // Fusion AC unit
-
-    //     // wall 1
-    //     //var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA'
-        
-    //     //wall 2
-    //     //var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGwtdHlwZS5mM2Q'
-      
-    //     // floor unit
-    //     var secondModelId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0Zsb29yLUV4cG9zZWQtLmYzZA'
-    //     Helpers.loadNextModel(secondModelId);   
-    // }
-
-    
+    }  
 
     render() {
         return (
