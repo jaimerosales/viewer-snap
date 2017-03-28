@@ -56,6 +56,7 @@ function launchViewer(documentId) {
  })
 }
 
+
 /**
  * Autodesk.Viewing.Document.load() success callback.
  * Proceeds with model initialization.
@@ -105,15 +106,18 @@ function onDocumentLoadFailure(viewerErrorCode) {
 //
 //////////////////////////////////////////////////////////////////////////
 function onGeometryLoadedHandler(event) {
+        //event.target.model = event.model
         var viewer = event.target;
+        debugger
         viewer.removeEventListener(
                 Autodesk.Viewing.GEOMETRY_LOADED_EVENT,
                 onGeometryLoadedHandler);
         viewer.setQualityLevel(false,false);
-        
+        debugger;
         viewer.setGroundShadow(false);
         viewer.fitToView();
 }
+
 
 function loadNextModel(documentId) {
      const extInstance = viewer.getExtension(ModelTransformerExtension);
@@ -145,7 +149,7 @@ function onSelection (event) {
         true)
       
     }
-   // console.log('pointData', pointData)
+    console.log('pointData', pointData)
 }
 
 
@@ -259,12 +263,13 @@ function floorTransform(){
 
 
 function loadModel(viewables, lmvDoc, indexViewable) {
+
     return new Promise(async(resolve, reject)=> {
         var initialViewable = viewables[indexViewable];
         var svfUrl = lmvDoc.getViewablePath(initialViewable);
         var modelOptions;    
         var modelName;
-        debugger;
+
         switch (lmvDoc.myData.status.toString() === "success" ) {
             case (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA"):
                 modelOptions = {
