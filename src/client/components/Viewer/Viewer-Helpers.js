@@ -79,11 +79,12 @@ function onDocumentLoadSuccess(doc) {
     viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, onGeometryLoadedHandler);
     viewer.addEventListener(Autodesk.Viewing.AGGREGATE_SELECTION_CHANGED_EVENT,onSelection);
     viewer.prefs.tag('ignore-producer');
+    
     viewer.impl.disableRollover(true);
     viewer.loadExtension(ModelTransformerExtension, {
          parentControl: 'modelTools',
          autoLoad: true
-    })
+    })  
     // Choose any of the available viewables.
     var indexViewable = 0;
     var lmvDoc = doc;
@@ -108,6 +109,9 @@ function onGeometryLoadedHandler(event) {
         viewer.removeEventListener(
                 Autodesk.Viewing.GEOMETRY_LOADED_EVENT,
                 onGeometryLoadedHandler);
+        viewer.setQualityLevel(false,false);
+        
+        viewer.setGroundShadow(false);
         viewer.fitToView();
 }
 
@@ -141,7 +145,7 @@ function onSelection (event) {
         true)
       
     }
-    console.log('pointData', pointData)
+   // console.log('pointData', pointData)
 }
 
 
@@ -264,18 +268,21 @@ function loadModel(viewables, lmvDoc, indexViewable) {
         switch (lmvDoc.myData.status.toString() === "success" ) {
             case (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGxfMV90b25uYWdlLmYzZA"):
                 modelOptions = {
+                    sharedPropertyDbPath: lmvDoc.getPropertyDbPath(),
                     placementTransform: wallOneTransform()
                 };
                 modelName = "wall-ac-unit-one.f3d"    
                 break;
             case (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L3dhbGwtdHlwZS12NC5mM2Q"):
                 modelOptions = {
+                    sharedPropertyDbPath: lmvDoc.getPropertyDbPath(),
                     placementTransform: wallTwoTransform()
                 };
                 modelName = "wall-ac-unit-two.f3d"
                 break;
             case (lmvDoc.myData.guid.toString() === "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0Zsb29yLUV4cG9zZWQtMV9Ub25uYWdlLmYzZA"):
                 modelOptions = {
+                    sharedPropertyDbPath: lmvDoc.getPropertyDbPath(),
                     placementTransform: floorTransform()
                 };
                 modelName = "floor-ac-unit.f3d"
@@ -284,6 +291,7 @@ function loadModel(viewables, lmvDoc, indexViewable) {
                 modelOptions = {
                     sharedPropertyDbPath: lmvDoc.getPropertyDbPath(),
                 };
+                viewer.impl.toggleCelShading(true);
                 modelName = "Apartment.rvt"
         }
        

@@ -24,7 +24,7 @@ class ModelTransformerExtension extends ExtensionBase {
     super(viewer, options)
 
     this.firstModelLoaded = null
-
+    debugger;
     this.modelCollection = {}
 
     this.onGeometryLoadedHandler = (e) => {
@@ -303,7 +303,7 @@ class ModelTransformerExtension extends ExtensionBase {
   onGeometryLoaded (e) {
     
     if(this._options.autoLoad) {
-      //debugger;
+      debugger;
       var model = e.model
 
       model.modelId = model.modelId || ExtensionBase.guid()
