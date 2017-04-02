@@ -248,7 +248,6 @@ class ModelTransformerExtension extends ExtensionBase {
     })
 
     this.panel.on('model.delete', (data) => {
-
       this.deleteModel(
         data.model)
 
@@ -549,7 +548,7 @@ class ModelTransformerExtension extends ExtensionBase {
   //
   /////////////////////////////////////////////////////////////////
   deleteModel (model, fireEvent = true) {
-
+    debugger
     delete this.modelCollection[model.modelId]
 
     if(Object.keys(this.modelCollection).length === 0){

@@ -54,7 +54,7 @@ export default class ModelTransformerPanel extends ToolPanelBase {
     })
 
     var applyTransform = (model, fitToView = false) => {
-
+      console.log(model);
       this.txTool.clearSelection()
       this.rxTool.clearSelection()
 
@@ -73,7 +73,8 @@ export default class ModelTransformerPanel extends ToolPanelBase {
           }
         })
       }
-    }
+    };
+    this.applyTransform = applyTransform;
 
     this.fullTransformSwitch = new SwitchButton(
       `#${this.container.id}-full-transform-switch`)
