@@ -24,7 +24,6 @@ class ModelTransformerExtension extends ExtensionBase {
     super(viewer, options)
 
     this.firstModelLoaded = null
-    debugger;
     this.modelCollection = {}
 
     this.onGeometryLoadedHandler = (e) => {
@@ -249,7 +248,6 @@ class ModelTransformerExtension extends ExtensionBase {
     })
 
     this.panel.on('model.delete', (data) => {
-
       this.deleteModel(
         data.model)
 
@@ -301,9 +299,8 @@ class ModelTransformerExtension extends ExtensionBase {
   //
   /////////////////////////////////////////////////////////////////
   onGeometryLoaded (e) {
-    
+    // In Philippes extension he uses e.target
     if(this._options.autoLoad) {
-      debugger;
       var model = e.model
 
       model.modelId = model.modelId || ExtensionBase.guid()
@@ -551,7 +548,7 @@ class ModelTransformerExtension extends ExtensionBase {
   //
   /////////////////////////////////////////////////////////////////
   deleteModel (model, fireEvent = true) {
-
+    debugger
     delete this.modelCollection[model.modelId]
 
     if(Object.keys(this.modelCollection).length === 0){

@@ -1,4 +1,4 @@
-# Viewer XYplane
+# Viewer Snap
 
 [![Node.js](https://img.shields.io/badge/Node.js-4.4.0-blue.svg)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-3.10.7-green.svg)](https://www.npmjs.com/)
@@ -10,9 +10,9 @@
 
 ## Description
 
-This Sample demonstrates the use of Transformation access in the Forge Viewer, the chance to add multiple models to the same 3D scene can be achieved. A new extension has been added to the GUI Toolbar of the viewer. Look for the button in the toolbar that has a ‘3 interlocked gear’ icon. Once selected you can select the recently model added and drag it along the XY Axis plane. 
+This Sample demonstrates the use of Transformation access in the Forge Viewer, the chance to add multiple models to the same 3D scene can be achieved in a specific location by selecting either a wall point or a point on the floor depending the AC Unit that you want to snap. A new extension has been added to the GUI Toolbar of the viewer. Look for the button in the toolbar that has a ‘3 interlocked gear’ icon. Once selected you can select the recently model added and drag it along the XY Axis plane or XZ plane. 
 
-![](public/images/viewer-xyplane-preview.png) 
+![](public/images/viewer-snap-jci-preview.png) 
 
 The sample is using the following Web Technologies.
 
