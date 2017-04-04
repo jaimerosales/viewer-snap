@@ -106,7 +106,7 @@ function onDocumentLoadFailure(viewerErrorCode) {
 //
 //////////////////////////////////////////////////////////////////////////
 function onGeometryLoadedHandler(event) {
-        //event.target.model = event.model
+        event.target.model = event.model
         var viewer = event.target;
         debugger
         viewer.removeEventListener(
@@ -149,8 +149,6 @@ function onSelection (event) {
         true)
       
     }
-    //debugger
-    console.log('pointData', pointData)
 }
 
 
@@ -236,7 +234,7 @@ function floorTransform(){
     }
         console.log(transform);
         if (pointData.face.normal.x === 0 && pointData.face.normal.y === 0 ){
-            transform.translation = new THREE.Vector3(pointData.point.x , pointData.point.y , pointData.point.z - 3.62);
+            transform.translation = new THREE.Vector3(pointData.point.x , pointData.point.y , pointData.point.z+1);
             console.log('Clipped to Floor Z axis');
         }
         else {

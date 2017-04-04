@@ -74,6 +74,8 @@ export default class ModelTransformerPanel extends ToolPanelBase {
         })
       }
     };
+    // Adding this but needs improvement since Panel should be completely separate
+    // from the use of the Model Transformation of the model.
     this.applyTransform = applyTransform;
 
     this.fullTransformSwitch = new SwitchButton(
