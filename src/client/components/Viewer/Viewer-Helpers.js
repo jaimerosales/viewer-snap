@@ -90,7 +90,7 @@ function onDocumentLoadSuccess(doc) {
     var indexViewable = 0;
     var lmvDoc = doc;
 
-    // Everything is set up, load the model.
+    // Everything is setup, load the model.
     loadModel(viewables, lmvDoc, indexViewable);
 }
 
@@ -108,13 +108,12 @@ function onDocumentLoadFailure(viewerErrorCode) {
 function onGeometryLoadedHandler(event) {
         event.target.model = event.model
         var viewer = event.target;
-        debugger
         viewer.removeEventListener(
                 Autodesk.Viewing.GEOMETRY_LOADED_EVENT,
                 onGeometryLoadedHandler);
         viewer.setQualityLevel(false,false);
-        
         viewer.setGroundShadow(false);
+        viewer.showAll();
         viewer.fitToView();
 }
 
@@ -141,13 +140,11 @@ function loadNextModel(documentId) {
 
 
 function onSelection (event) {
-
     if (event.selections && event.selections.length) {
-      pointData = viewer.clientToWorld(
-        pointer.canvasX,
-        pointer.canvasY,
-        true)
-      
+        pointData = viewer.clientToWorld(
+            pointer.canvasX,
+            pointer.canvasY,
+            true)
     }
 }
 
@@ -280,7 +277,7 @@ function loadModel(viewables, lmvDoc, indexViewable) {
                 modelName = "floor-ac-unit.f3d"
                 break;
             default:
-                viewer.impl.toggleCelShading(true);
+                //viewer.impl.toggleCelShading(true);
                 modelName = "Apartment.rvt";
             }
 
