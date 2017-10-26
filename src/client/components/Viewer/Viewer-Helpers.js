@@ -81,7 +81,7 @@ function onDocumentLoadSuccess(doc) {
     viewer.addEventListener(Autodesk.Viewing.AGGREGATE_SELECTION_CHANGED_EVENT,onSelection);
     viewer.prefs.tag('ignore-producer');
     
-    viewer.impl.disableRollover(true);
+    //viewer.impl.disableRollover(true); removed for viewer version 3.2
     viewer.loadExtension(ModelTransformerExtension, {
          parentControl: 'modelTools',
          autoLoad: true
