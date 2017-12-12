@@ -113,7 +113,7 @@ function onGeometryLoadedHandler(event) {
                 onGeometryLoadedHandler);
         viewer.setQualityLevel(false,false);
         viewer.setGroundShadow(false);
-        viewer.showAll();
+        //viewer.showAll();
         viewer.fitToView();
 }
 
